@@ -62,14 +62,6 @@ def extrato():
 
 def criar_usuario():
     global count_usuarios
-    print("a fazer...")
-    #JA FEITO:
-    # Usuario é composto por NOME, DATA DE NASCIMENTO, CPF E ENDERECO OK
-    # Endereco possui logradouro, numero, bairro, cidade, estado OK
-    # Sugestao de formato para endereco: logradouro, numero - bairro - cidade/sigla estado OK
-    # cpf deve guardar apenas os numeros do cpf, sem tracos nem pontos OK
-    # ex de cpf: 123.098.234-94 => devera ficar assim 12309823494 OK
-    # nao pode cadastrar 2 usuarios com o mesmo cpf OK    
     
     cpf_format = input("Digite o cpf: ")
     cpf_f= cpf_format.replace("-","")
@@ -121,7 +113,7 @@ def criar_conta_corrente(AGENCIA, numero_conta, usuarios):
         print("\n Conta criada com sucesso!")
         return{"agencia": AGENCIA, "numero": numero_conta, "usuario": usuario}    
     
-    print("\n Usuario nao encontrado")
+    print("\n Usuario nao encontrado, fluxo de criacao de contas encerrado")
     return None
     
 def listar_contas(contas):
@@ -134,14 +126,6 @@ def listar_contas(contas):
             """
         print("=" * 100)
         print(textwrap.dedent(linha))
-
-    #TODO:
-    # O programa deve armazenar contas em uma lista OK
-    # A conta é composta por: agência, numero da conta e usuário OK
-    # O numero da conta é sequencial, iniciando em 1 OK
-    # O numero da agencia é fixo: 0001 OK
-    # O usuario pode ter mais de uma conta OK
-    # Mas uma conta pertence SOMENTE a um usuario
 
 while True:
     opcao = input(menu)
