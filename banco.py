@@ -6,7 +6,8 @@ menu = """
 [3] Extrato
 [4] Criar novo Usuario
 [5] Criar conta corrente
-[6] Sair
+[6] Listar contas
+[7] Sair
 
 => """
 
@@ -20,6 +21,8 @@ LIMITE_SAQUES = 3
 usuarios = [] 
 count_usuarios = 0
 contas = []
+numero_contas = 0
+count_contas = 1
 
 def depositar():
     global saldo, numero_depositos
@@ -56,7 +59,6 @@ def sacar():
 
 def extrato():
     print("Seu saldo: ", saldo)
-
 
 def criar_usuario():
     global count_usuarios
@@ -109,27 +111,35 @@ def filtrar_usuario(cpf,usuarios):
     usuarios_filtrados = [usuario for usuario in usuarios if usuario["CPF"] == cpf]
     return usuarios_filtrados[0] if usuarios_filtrados else None
 
+def criar_conta_corrente(AGENCIA, numero_conta, usuarios):
+    global contas 
 
+    cpf = input("Informe o CPF do usuario: ")
+    usuario = filtrar_usuario(cpf, usuarios)
 
-def criar_conta_corrente():
-    print("a fazer...")
-    global AGENCIA
-    global contas
-    count_contas = 0    
-    numero_conta = count_contas + 1
+    if usuario:
+        print("\n Conta criada com sucesso!")
+        return{"agencia ":AGENCIA, "numero ":numero_conta, "usuario ":usuario}    
     
-
-    contas[count_contas] = [AGENCIA, numero_conta]    
-
-    count_contas = count_contas + 1
+    print("\n Usuario nao encontrado")
+    return None
     
+def listar_contas(contas):
+    for conta in contas:
+        linha = f"""\
+            Agência: \t{conta['agencia']}
+            C/C:\t\t{conta['numero_conta']}
+            Titular:\t{conta['usuario']['nome']}
+            """
+        print("=" * 100)
+        print(textwrap.dedent(linha))
 
     #TODO:
-    # O programa deve armazenar contas em uma lista
-    # A conta é composta por: agência, numero da conta e usuário
-    # O numero da conta é sequencial, iniciando em 1
-    # O numero da agencia é fixo: 0001
-    # O usuario pode ter mais de uma conta
+    # O programa deve armazenar contas em uma lista OK
+    # A conta é composta por: agência, numero da conta e usuário OK
+    # O numero da conta é sequencial, iniciando em 1 OK
+    # O numero da agencia é fixo: 0001 OK
+    # O usuario pode ter mais de uma conta OK
     # Mas uma conta pertence SOMENTE a um usuario
 
 while True:
@@ -155,9 +165,18 @@ while True:
     
     elif opcao == "5":
         print("Criar conta corrente")
-        criar_conta_corrente()       
+        numero_conta = len(contas) + 1
+        conta =criar_conta_corrente(AGENCIA, numero_conta, usuarios)      
+
+        if conta:
+            contas.append(conta)
+            count_contas += 1
     
     elif opcao == "6":
+        print("Listando contas")
+        listar_contas(contas)
+
+    elif opcao == "7":
         print("Saindo...")
         break
     else: 
