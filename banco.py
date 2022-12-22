@@ -119,17 +119,18 @@ def criar_conta_corrente(AGENCIA, numero_conta, usuarios):
 
     if usuario:
         print("\n Conta criada com sucesso!")
-        return{"agencia ":AGENCIA, "numero ":numero_conta, "usuario ":usuario}    
+        return{"agencia": AGENCIA, "numero": numero_conta, "usuario": usuario}    
     
     print("\n Usuario nao encontrado")
     return None
     
 def listar_contas(contas):
+    print(contas)
     for conta in contas:
         linha = f"""\
-            Agência: \t{conta['agencia']}
-            C/C:\t\t{conta['numero_conta']}
-            Titular:\t{conta['usuario']['nome']}
+            Agência: \t{conta["agencia"]}
+            C/C:\t\t{conta["numero"]}
+            Titular:\t{conta["usuario"]}
             """
         print("=" * 100)
         print(textwrap.dedent(linha))
