@@ -57,6 +57,7 @@ def sacar():
 def extrato():
     print("Seu saldo: ", saldo)
 
+
 def criar_usuario():
     global count_usuarios
     print("a fazer...")
@@ -66,24 +67,20 @@ def criar_usuario():
     # Sugestao de formato para endereco: logradouro, numero - bairro - cidade/sigla estado OK
     # cpf deve guardar apenas os numeros do cpf, sem tracos nem pontos OK
     # ex de cpf: 123.098.234-94 => devera ficar assim 12309823494 OK
-    # nao pode cadastrar 2 usuarios com o mesmo cpf OK
+    # nao pode cadastrar 2 usuarios com o mesmo cpf OK    
     
-    nome = input("Digite o nome do usuario: ")
-
-    data_nascimento = input("Digite a data de nascimento: ")
-
     cpf_format = input("Digite o cpf: ")
     cpf_f= cpf_format.replace("-","")
     cpf= cpf_f.replace(".","")
 
-    if count_usuarios == 0:
-        count_usuarios = count_usuarios + 1
-    else:
-        i = 0
-        for i in range(count_usuarios):
-            if cpf[i] in usuarios == cpf[count_usuarios]:
-                print("CPF ja cadastrado")
-                criar_usuario()    
+    usuario = filtrar_usuario(cpf, usuarios)
+
+    if usuario:
+        print("\n @@@ Já existe usuario com esse CPF!")
+        return
+    
+    nome = input("Digite o nome do usuario: ")
+    data_nascimento = input("Digite a data de nascimento: ")
 
     confirmacao = "N"
     while confirmacao == "N":
@@ -102,11 +99,17 @@ def criar_usuario():
         if (confirmacao != 'S' and confirmacao != 's' and confirmacao != 'N' and confirmacao != 'n'):
             confirmacao = input("Digite uma das opcoes: (S) (N): ")  
     
-    usuarios.append({"Numero do usuario: ": count_usuarios, " Nome do usuario: ":nome, " Endereco: ":endereco, " Data de nascimento: ":data_nascimento})
+    usuarios.append({"Numero do usuario: ": count_usuarios, " Nome do usuario: ,": nome,"CPF": cpf, " Endereco: ": endereco, " Data de nascimento: ":data_nascimento})
 
     print(usuarios)
 
-    count_usuarios = count_usuarios + 1    
+    print("contador ",count_usuarios)   
+
+def filtrar_usuario(cpf,usuarios):
+    usuarios_filtrados = [usuario for usuario in usuarios if usuario["CPF"] == cpf]
+    return usuarios_filtrados[0] if usuarios_filtrados else None
+
+
 
 def criar_conta_corrente():
     print("a fazer...")
@@ -122,7 +125,7 @@ def criar_conta_corrente():
     
 
     #TODO:
-    # O programa deve armazenar contas e uma lista
+    # O programa deve armazenar contas em uma lista
     # A conta é composta por: agência, numero da conta e usuário
     # O numero da conta é sequencial, iniciando em 1
     # O numero da agencia é fixo: 0001
