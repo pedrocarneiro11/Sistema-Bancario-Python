@@ -77,7 +77,7 @@ def criar_usuario():
     data_nascimento = input("Digite a data de nascimento: ")
 
     confirmacao = "N"
-    while confirmacao == "N":
+    while confirmacao == "N" or confirmacao == "n":
         print ("Digite o endereco")
         logradouro = input("Digite o nome da rua: ")
         numero = input("Digite o numero da rua: ")
@@ -91,7 +91,7 @@ def criar_usuario():
         
         confirmacao = input("Está correto? (S) (N): ") 
         if (confirmacao != 'S' and confirmacao != 's' and confirmacao != 'N' and confirmacao != 'n'):
-            confirmacao = input("Digite uma das opcoes: (S) (N): ")  
+            confirmacao = input("Digite uma das opcoes validas: (S) (N): ")  
     
     usuarios.append({"Numero do usuario: ": count_usuarios, " Nome do usuario: ,": nome,"CPF": cpf, " Endereco: ": endereco, " Data de nascimento: ":data_nascimento})
 
