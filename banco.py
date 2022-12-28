@@ -92,12 +92,13 @@ def criar_usuario():
         confirmacao = input("Está correto? (S) (N): ") 
         if (confirmacao != 'S' and confirmacao != 's' and confirmacao != 'N' and confirmacao != 'n'):
             confirmacao = input("Digite uma das opcoes validas: (S) (N): ")  
-    
-    usuarios.append({"Numero do usuario: ": count_usuarios, " Nome do usuario: ,": nome,"CPF": cpf, " Endereco: ": endereco, " Data de nascimento: ":data_nascimento})
 
+    usuarios.append({"Numero do usuario: ": count_usuarios, " Nome do usuario:": nome,"CPF": cpf, " Endereco: ": endereco, " Data de nascimento: ":data_nascimento})
+   
     print(usuarios)
 
     print("contador ",count_usuarios)   
+    count_usuarios = count_usuarios + 1
 
 def filtrar_usuario(cpf,usuarios):
     usuarios_filtrados = [usuario for usuario in usuarios if usuario["CPF"] == cpf]
@@ -113,7 +114,7 @@ def criar_conta_corrente(AGENCIA, numero_conta, usuarios):
         print("\n Conta criada com sucesso!")
         return{"agencia": AGENCIA, "numero": numero_conta, "usuario": usuario}    
     
-    print("\n Usuario nao encontrado, fluxo de criacao de contas encerrado")
+    print("\n Usuario nao encontrado, é necessario o cadastro deste cpf no sistema! Para isso, prossiga para a opcao de numero [4] Criar novo Usuario")
     return None
     
 def listar_contas(contas):
